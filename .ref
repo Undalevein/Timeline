@@ -1,0 +1,113 @@
+Infinity Cells
+--------------
+
+A - Booleans
+(true -> false -> ...)
+
+B - Boolean Operators
+(not -> and -> or -> ...)
+
+C - Concatentation Operators
+(+ -> * -> ...)
+
+D - Digits
+Goes from 0 to 9, then loops.
+
+E - Equality/Inequality Operators
+(== -> != -> < -> <= -> > -> => -> ...)
+
+I - Stdin Input
+Characters go from Index 0 to Index (length of Stdin), then loops.
+
+L - Lowercase Letters
+Goes from a to z, then loops.
+
+M - Math Operators 
+(+ -> - -> * -> / -> ** -> % -> ...)
+
+N - Bitwise Operators
+(~ -> & -> | -> << -> >> -> >>> -> ...)
+
+R - Rounding/Estimation Operators
+(round -> ceil -> floor -> trunc -> ...)
+
+S - Symbols
+`~!@#$%^&*()-_=+[{]}\|;:'",<.>/?
+
+T - Trig Operators
+(sin -> cos -> tan -> csc -> sec -> cot -> asin -> acos -> atan -> acsc -> asec -> acot -> sinh -> cosh -> tanh -> csch -> sech -> coth -> ...)
+
+U - Uppercase Letters
+Goes from A to Z, then loops.
+
+W - Whitespace
+(space -> line feed -> tab)
+
+
+1 - Movement1
+(LEFT -> DOWN -> RIGHT -> UP)
+
+2 - Movement2
+(DOWN -> RIGHT -> UP -> LEFT)
+
+3 - Movement3
+(RIGHT -> UP -> LEFT -> DOWN)
+
+4 - Movement4
+(UP -> LEFT -> DOWN -> RIGHT)
+
+----------------------------------------------------------------------------------
+
+Static Cells
+------------
+
+>       Turn clockwise unconditionally
+<       Turn counterclockwise unconditionally
+)       Turn clockwise if accumulator is true (Does not clear accumulator)
+(       Turn counterclockwise if accumulator is true (Does not clear accumulator)
+@       Enter the next layer
+#       Hop over cell in front of you
+!       Drop a copy of the accumulator down 1 layer; won't drop if accumulator is null; will pick up item if accumulator is null
+?       Clears accumulator
+.       Prints the accumulator and clears it; if the value in the accumulator has not been evaluated, it will print "UNEVALUATED".
+,       Prints a copy of the accumulator; if the value in the accumulator has not been evaluated, it will print "UNEVALUATED".
+X       Terminate Program
+
+---------------------------------------------------------------------------------
+
+Accumulator
+-----------
+
+- Anytime you enter an infinity cell, you can pick up values and operators (but not directions).
+- Items fill from left to right.
+- Values are evalutated based on the operators arity and other things.
+    - Unary operators 
+        - Automatically evaluates the value to the left after that operator is obtained. (true not -> false).
+        - If there are no values left of the unary operator, accumulator will be evaluated as AMORPHOUS.
+        - If there is a type discrepancy when trying to evaluate, accumulator will be evaluated as AMORPHOUS
+    - Binary operators
+        - Automatically evalueates two values to the left and right after the right value is obtained. ("H" * 3 -> "HHH")
+        - If there are no values left of the unary operator, accumulator will be evaluated as AMORPHOUS.
+        - If there is a type discrepancy when trying to evaluate, accumulator will be evaluated as AMORPHOUS
+- AMORPHOUS
+    - If the accumulator has an AMORPHOUS atom, then every other pickup will be ignored until the accumulator is cleared.
+    - Upon printing, it will print "AMORPHOUS".
+    - AMORPHOUS is always false.
+- NULL
+    - Accumulator begins with NULL.
+    - Upon printing, it will print nothing (or an empty string).
+    - NULL is always false.
+    - If you pick up a value or operator, it will supercede NULL.
+- UNEVALUATED
+    - If the accumulator is not evaluated yet, it will always be false.
+    - If you print when the accumulator is not evaluateed yet, it will prit "UNEVALUATED".
+
+---------------------------------------------------------------------------------
+
+Rules
+-----
+
+- Your pointer will start at the top left corner of your code.
+- By default, the pointer moves right.
+- The pointer will evaluate the tile it is on, then it will move in the current direction.
+- 
