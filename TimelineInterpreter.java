@@ -3,52 +3,15 @@ import java.util.List;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Map;
+import java.util.LinkedList;
 
 public class TimelineInterpreter {
+
     private static enum Direction {
         UP,
         LEFT,
         DOWN,
         RIGHT;
-    }
-
-    private static enum Operator {
-        NULL,
-        ADD,
-        SUB,
-        MULT,
-        DIV,
-        POW,
-        MOD,
-        NEG,
-        ROUND,
-        CEIL,
-        FLOOR,
-        TRUNC,
-        SIN,
-        COS,
-        TAN,
-        CSC,
-        SEC,
-        COT,
-        BNOT,
-        BAND,
-        BOR,
-        BXOR,
-        BLSHIFT,
-        BRSHIFT,
-        BRSHIFTPLUS,
-        NOT,
-        AND,
-        OR,
-        CONCAT,
-        REPEAT,
-        EQUALS,
-        NOTEQUALS,
-        LESSTHAN,
-        LESSTHANEQUALS,
-        GREATERTHAN,
-        GREATERTHANEQUALS;
     }
 
     private static final Operator[] mathOperators = {
@@ -168,19 +131,6 @@ public class TimelineInterpreter {
         return code;
     }
 
-    private static int pow(int a, int b) {
-        /**
-         * Returns the exponent of a ** b.
-         * 
-         * @param a         the base
-         * @param b         the power
-         * @return          the exponent result
-         */
-        int exp = 1;
-        for (int i = 0; i < b; i++) {exp *= a;}
-        return exp;
-    }
-
     private static int mod(int a, int b) {
         /**
          * Returns the modulo of a mod b.
@@ -223,16 +173,6 @@ public class TimelineInterpreter {
             lcm += absHigherNumber;
         }
         return lcm;
-    }
-
-    private static int truncate(double n) {
-        /**
-         * Truncates the double to an integer.
-         * 
-         * @param n             the double to be truncated
-         * @return              the integer that is truncated
-         */
-        return ((n < 0) ? -1 : 1) * (int)(Math.floor(Math.abs(n)));
     }
 
     private static int getResetLayer() {
@@ -286,220 +226,6 @@ public class TimelineInterpreter {
         }
     }
 
-    private static boolean[] evaluate(String[] accumulator, Operator operator, int accSize) {
-        /**
-         * Evaluates the accumulator from the given values
-         * and operators. This will change the accumulator and remove the
-         * operator to null.
-         * 
-         * @param accumulator   the accumulator of the timeline code
-         * @param operator      the operator to evaluate the code
-         * @param accSize       the size of the accumulator
-         * @return              the boolean if the evaluation does not lead to an Amorphous
-         *                          [0] <= Checks if evaluation has been changed.
-         *                          [1] <= Checks if the current evaluation state is valid.
-         */
-        // System.out.println(accumulator[0] + " " +  operator + " " + accumulator[1] + " " + accSize);
-        boolean hasChanged = accSize >= 2;
-        boolean isValid = true;
-        try {
-            switch (accSize) {
-                case 2:     
-                    // Binary Operations
-                    switch (operator) {
-                        case ADD:
-                            accumulator[0] = Integer.toString(
-                                Integer.parseInt(accumulator[0]) + Integer.parseInt(accumulator[1]));
-                            accumulator[1] = null;
-                            break;
-                        case SUB:
-                            accumulator[0] = Integer.toString(
-                                Integer.parseInt(accumulator[0]) - Integer.parseInt(accumulator[1]));
-                            accumulator[1] = null;
-                            break;
-                        case MULT:
-                            accumulator[0] = Integer.toString(
-                                Integer.parseInt(accumulator[0]) * Integer.parseInt(accumulator[1]));
-                            accumulator[1] = null;
-                            break;
-                        case DIV:
-                            accumulator[0] = Integer.toString(
-                                Integer.parseInt(accumulator[0]) / Integer.parseInt(accumulator[1]));
-                            accumulator[1] = null;
-                            break;
-                        case POW:
-                            accumulator[0] = Integer.toString(
-                                pow(Integer.parseInt(accumulator[0]), Integer.parseInt(accumulator[1])));
-                            accumulator[1] = null;
-                            break;
-                        case MOD:
-                            accumulator[0] = Integer.toString(
-                                mod(Integer.parseInt(accumulator[0]), Integer.parseInt(accumulator[1])));
-                            accumulator[1] = null;
-                            break;
-                        case BAND:
-                            accumulator[0] = Integer.toString(
-                                Integer.parseInt(accumulator[0]) & Integer.parseInt(accumulator[1]));
-                            accumulator[1] = null;
-                            break;
-                        case BOR:
-                            accumulator[0] = Integer.toString(
-                                Integer.parseInt(accumulator[0]) | Integer.parseInt(accumulator[1]));
-                            accumulator[1] = null;
-                            break;
-                        case BXOR:
-                            accumulator[0] = Integer.toString(
-                                Integer.parseInt(accumulator[0]) ^ Integer.parseInt(accumulator[1]));
-                            accumulator[1] = null;
-                            break;
-                        case BLSHIFT:
-                            accumulator[0] = Integer.toString(
-                                Integer.parseInt(accumulator[0]) << Integer.parseInt(accumulator[1]));
-                            accumulator[1] = null;
-                            break;
-                        case BRSHIFT:
-                            accumulator[0] = Integer.toString(
-                                Integer.parseInt(accumulator[0]) >> Integer.parseInt(accumulator[1]));
-                            accumulator[1] = null;
-                            break;
-                        case BRSHIFTPLUS:
-                            accumulator[0] = Integer.toString(
-                                Integer.parseInt(accumulator[0]) >>> Integer.parseInt(accumulator[1]));
-                            accumulator[1] = null;
-                            break;
-                        case AND:
-                            if (!accumulator[0].equals("FALSE") && !accumulator[1].equals("FALSE")){
-                                accumulator[0] = "TRUE";
-                            } else {
-                                accumulator[0] = "FALSE";
-                            }
-                            accumulator[1] = null;
-                            break;
-                        case OR:
-                            if (accumulator[0].equals("FALSE") && accumulator[1].equals("FALSE")){
-                                accumulator[0] = "FALSE";
-                            } else {
-                                accumulator[0] = "TRUE";
-                            }
-                            accumulator[1] = null;
-                            break;
-                        case CONCAT:
-                            accumulator[0] += accumulator[1];
-                            accumulator[1] = null;
-                            break;
-                        case REPEAT:
-                            String temp = "";
-                            for (int i = 0; i < Integer.parseInt(accumulator[1]); i++) {
-                                temp += accumulator[0];
-                            }
-                            accumulator[0] = temp;
-                            accumulator[1] = null;
-                            break;
-                        case EQUALS:
-                            accumulator[0] = (accumulator[0].equals(accumulator[1])) ? "TRUE" : "FALSE";
-                            accumulator[1] = null;
-                            break;
-                        case NOTEQUALS:
-                            accumulator[0] = (!accumulator[0].equals(accumulator[1])) ? "TRUE" : "FALSE";
-                            accumulator[1] = null;
-                            break;
-                        case LESSTHAN:
-                            accumulator[0] = (accumulator[0].compareTo(accumulator[1]) < 0) ? "TRUE" : "FALSE";
-                            accumulator[1] = null;
-                            break;
-                        case LESSTHANEQUALS:
-                            accumulator[0] = (accumulator[0].compareTo(accumulator[1]) <= 0) ? "TRUE" : "FALSE";
-                            accumulator[1] = null;
-                            break;
-                        case GREATERTHAN:
-                            accumulator[0] = (accumulator[0].compareTo(accumulator[1]) > 0) ? "TRUE" : "FALSE";
-                            accumulator[1] = null;
-                            break;
-                        case GREATERTHANEQUALS:
-                            accumulator[0] = (accumulator[0].compareTo(accumulator[1]) >= 0) ? "TRUE" : "FALSE";
-                            accumulator[1] = null;
-                            break;
-                        default:
-                            isValid = false;
-                            break;
-                    }
-                    break;
-                case 1:
-                    // Unary Operations
-                    switch (operator) {
-                        case null:
-                            hasChanged = false;
-                            break;
-                        case NEG:
-                            accumulator[0] = Integer.toString(-Integer.parseInt(accumulator[0]));
-                            break;
-                        case ROUND:
-                            accumulator[0] = Long.toString(Math.round(Double.parseDouble(accumulator[0])));
-                            break;
-                        case CEIL:
-                            accumulator[0] = Double.toString(Math.ceil(Double.parseDouble(accumulator[0])));
-                            break;
-                        case FLOOR:
-                            accumulator[0] = Double.toString(Math.floor(Double.parseDouble(accumulator[0])));
-                            break;
-                        case TRUNC:
-                            accumulator[0] = Double.toString(truncate(Double.parseDouble(accumulator[0])));
-                            break;
-                        case SIN:
-                            accumulator[0] = Double.toString(Math.sin(Double.parseDouble(accumulator[0])));
-                            break;
-                        case COS:
-                            accumulator[0] = Double.toString(Math.cos(Double.parseDouble(accumulator[0])));
-                            break;
-                        case TAN:
-                            accumulator[0] = Double.toString(Math.tan(Double.parseDouble(accumulator[0])));
-                            break;
-                        case CSC:
-                            accumulator[0] = Double.toString(1 / Math.sin(Double.parseDouble(accumulator[0])));
-                            break;
-                        case SEC:
-                            accumulator[0] = Double.toString(1 / Math.cos(Double.parseDouble(accumulator[0])));
-                            break;
-                        case COT:
-                            accumulator[0] = Double.toString(1 / Math.tan(Double.parseDouble(accumulator[0])));
-                            break;
-                        case BNOT:
-                            accumulator[0] = Integer.toString(~ Integer.parseInt(accumulator[0]));
-                            break;
-                        case NOT:
-                            if (accumulator[0].equals( "FALSE")) {
-                                accumulator[0] = "TRUE";
-                            } else {
-                                accumulator[0] = "FALSE";
-                            }
-                            break;
-                        default:
-                            hasChanged = false;
-                            break;
-                    }
-                    break;
-                default:
-                    isValid = operator == Operator.NULL;
-                    break;
-            }
-        } catch (Exception e) {
-            // System.out.println("EXCEPTION CAUGHT");
-            isValid = false;
-        }
-        // System.out.println("accumulator[0] == " + accumulator[0]);
-        return new boolean[]{hasChanged, isValid};
-    }
-
-    private static void clear(String[] accumulator) {
-        /**
-         * Clears the accumulator.
-         * 
-         * @param           the accumulator
-         */
-        accumulator[0] = null;
-        accumulator[1] = null;
-    } 
-
     private static void interpretCode() {
         /**
          * Interprets the timeline code and, if so, prints out its output.
@@ -518,74 +244,64 @@ public class TimelineInterpreter {
         Direction direction = Direction.RIGHT;
 
         // Internal Storage
-        String[] accumulator = new String[2];
-        int accSize = 0;
-        Operator operator = Operator.NULL;
-        boolean isAmorphous = false;
+        Accumulator accumulator = new Accumulator();
 
         program:
         for (;;) {
             // System.out.println("\n>> I am at: " + row + ", " + col + " doing " + code[row][col]);
             switch(code[row][col]) {
                 case 'A':
-                    accumulator[accSize] = getBoolean(layer);
-                    accSize++;
+                    accumulator.push(getBoolean(layer));
                     break;
                 case 'B':
-                    operator = getBooleanOperator(layer);
+                    accumulator.push( getBooleanOperator(layer));
                     break;
                 case 'C':
-                    operator = getConcatenation(layer);
+                    accumulator.push(getConcatenation(layer));
                     break;
                 case 'D':
-                    accumulator[accSize] = getDigit(layer);
-                    accSize++;
+                    accumulator.push(getDigit(layer));
                     break;
                 case 'E':
-                    operator = getEqualityOperator(layer);
+                    accumulator.push(getEqualityOperator(layer));
                     break;
                 case 'I':
-                    accumulator[accSize] = getStdinInput(layer);
-                    accSize++;
+                    accumulator.push(getStdinInput(layer));
                     break;
                 case 'L':
-                    accumulator[accSize] = getLowercaseLetter(layer);
-                    accSize++;
+                    accumulator.push(getLowercaseLetter(layer));
                     break;
                 case 'M':
-                    operator = getMathOperator(layer);
+                    accumulator.push(getMathOperator(layer));
                     break;
                 case 'N':
-                    operator = getBitwise(layer);
+                    accumulator.push(getBitwise(layer));
                     break;
                 case 'R':
-                    operator = getEstimationOperator(layer);
+                    accumulator.push(getEstimationOperator(layer));
                     break;
                 case 'S':
-                    accumulator[accSize] = getSymbol(layer);
-                    accSize++;
+                    accumulator.push(getSymbol(layer));
                     break;
                 case 'T':
-                    operator = getTrigOperator(layer);
+                    accumulator.push(getTrigOperator(layer));
                     break;
                 case 'U':
-                    accumulator[accSize] = getUppercaseLetter(layer);
-                    accSize++;
+                    accumulator.push(getUppercaseLetter(layer));
                     break;
                 case 'W':
-                    accumulator[accSize] = getWhitespace(layer);
-                    accSize++;
+                    accumulator.push(getWhitespace(layer));
                     break;
-                case '1':
+                case 'a':
                     direction = getMovement1(layer);
                     break;
-                case '2':
+                case 'b':
                     direction = getMovement2(layer);
                     break;
-                case '3':
+                case 'c':
                     direction = getMovement3(layer);
                     break;
-                case '4':
+                case 'd':
                     direction = getMovement4(layer);
                     break;
                 case '>':
@@ -595,12 +311,12 @@ public class TimelineInterpreter {
                     direction = turnCounterclockwise(direction);
                     break;
                 case ')':
-                    if (!isAmorphous && operator == null && accSize != 0) {
+                    if (accumulator.isTrue()) {
                         direction = turnClockwise(direction);
                     }
                     break;
                 case '(':
-                    if (!isAmorphous && operator == null && accSize != 0) {
+                    if (accumulator.isTrue()) {
                         direction = turnCounterclockwise(direction);
                     }
                     break;
@@ -623,50 +339,43 @@ public class TimelineInterpreter {
                             break;
                     }
                     break;
-                case '!': // TODO
+                case '0': // TODO
+                    break;
+                case '1': // TODO
+                    break;
+                case '2': // TODO
+                    break;
+                case '3': // TODO
+                    break;
+                case '4': // TODO
+                    break;
+                case '5': // TODO
+                    break;
+                case '6': // TODO
+                    break;
+                case '7': // TODO
+                    break;
+                case '8': // TODO
+                    break;
+                case '9': // TODO
                     break;
                 case '?':
-                    clear(accumulator);
-                    operator = Operator.NULL;
-                    accSize = 0;
-                    isAmorphous = false;
+                    accumulator.clear();
                     break;
                 case '.':
-                    if (isAmorphous) {
-                        System.out.print("AMORPHOUS");
-                    } else if (operator != Operator.NULL) {
-                        System.out.print("UNEVALUATED");
-                    } else if (accSize != 0){
-                        System.out.print(accumulator[0]);
-                    }
-                    clear(accumulator);
-                    operator = Operator.NULL;
-                    accSize = 0;
-                    isAmorphous = false;
+                    accumulator.print();
+                    accumulator.clear();
                     break;
                 case ',':
-                    if (isAmorphous) {
-                        System.out.print("AMORPHOUS");
-                    } else if (operator != null) {
-                        System.out.print("UNEVALUATED");
-                    } else if (accSize != 0){
-                        System.out.print(accumulator[0]);
-                    }
+                    accumulator.print();
                     break;
                 case 'X':
                     break program;
             }
             
-            boolean[] evaluation = evaluate(accumulator, operator, accSize);
-            if (evaluation[0]){
-                operator = Operator.NULL;
-            }
-            if (isAmorphous || !evaluation[1]) {
+            if (accumulator.isAmorphous || !accumulator.evaluate()) {
                 // System.out.println("ACCUMULATOR IS AMORPHOUS");
-                isAmorphous = true;
-                clear(accumulator);
-                operator = Operator.NULL;
-                accSize = 0;
+                accumulator.amorphousClear();
             }   
             // System.out.println("Operator right now is " + operator);
             switch(direction) {

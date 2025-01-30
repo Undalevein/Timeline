@@ -43,17 +43,16 @@ Goes from A to Z, then loops.
 W - Whitespace
 (space -> line feed -> tab)
 
-
-1 - Movement1
+a - Movement1
 (LEFT -> DOWN -> RIGHT -> UP)
 
-2 - Movement2
+b - Movement2
 (DOWN -> RIGHT -> UP -> LEFT)
 
-3 - Movement3
+c - Movement3
 (RIGHT -> UP -> LEFT -> DOWN)
 
-4 - Movement4
+d - Movement4
 (UP -> LEFT -> DOWN -> RIGHT)
 
 ----------------------------------------------------------------------------------
@@ -67,7 +66,16 @@ Static Cells
 (       Turn counterclockwise if accumulator is true (Does not clear accumulator)
 @       Enter the next layer
 #       Hop over cell in front of you
-!       Drop a copy of the accumulator down 1 layer; won't drop if accumulator is null; will pick up item if accumulator is null
+0       Drop a copy of the accumulator on the same layer; won't drop if accumulator is null; will pick up item if accumulator is null
+1       Drop a copy of the accumulator down 1 layer; won't drop if accumulator is null; will pick up item if accumulator is null
+2       Drop a copy of the accumulator down 2 layer; won't drop if accumulator is null; will pick up item if accumulator is null
+3       Drop a copy of the accumulator down 3 layer; won't drop if accumulator is null; will pick up item if accumulator is null
+4       Drop a copy of the accumulator down 4 layer; won't drop if accumulator is null; will pick up item if accumulator is null
+5       Drop a copy of the accumulator down 5 layer; won't drop if accumulator is null; will pick up item if accumulator is null
+6       Drop a copy of the accumulator down 6 layer; won't drop if accumulator is null; will pick up item if accumulator is null
+7       Drop a copy of the accumulator down 7 layer; won't drop if accumulator is null; will pick up item if accumulator is null
+8       Drop a copy of the accumulator down 8 layer; won't drop if accumulator is null; will pick up item if accumulator is null
+9       Drop a copy of the accumulator down 9 layer; won't drop if accumulator is null; will pick up item if accumulator is null
 ?       Clears accumulator
 .       Prints the accumulator and clears it; if the value in the accumulator has not been evaluated, it will print "UNEVALUATED".
 ,       Prints a copy of the accumulator; if the value in the accumulator has not been evaluated, it will print "UNEVALUATED".
@@ -100,7 +108,7 @@ Accumulator
     - If you pick up a value or operator, it will supercede NULL.
 - UNEVALUATED
     - If the accumulator is not evaluated yet, it will always be false.
-    - If you print when the accumulator is not evaluateed yet, it will prit "UNEVALUATED".
+    - If you print when the accumulator is not evaluateed yet, it will print "UNEVALUATED".
 
 ---------------------------------------------------------------------------------
 
@@ -110,4 +118,3 @@ Rules
 - Your pointer will start at the top left corner of your code.
 - By default, the pointer moves right.
 - The pointer will evaluate the tile it is on, then it will move in the current direction.
-- 
