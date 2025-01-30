@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Map;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class TimelineInterpreter {
@@ -238,18 +238,23 @@ public class TimelineInterpreter {
 
         // Code References
         char[][] code = retrieveCode();
-        int row = 0, col = 0;
+        Point loc = new Point(0, 0);
         int layer = 0;
         int resetLayer = getResetLayer();
         Direction direction = Direction.RIGHT;
 
         // Internal Storage
         Accumulator accumulator = new Accumulator();
+        LinkedList<HashMap<Point,String>> drops = new LinkedList<HashMap<Point,String>>();
+        
+        for (int i = 0 ; i < 10 ; i++) {
+            drops.add(new HashMap<Point, String>());
+        }
 
         program:
         for (;;) {
-            // System.out.println("\n>> I am at: " + row + ", " + col + " doing " + code[row][col]);
-            switch(code[row][col]) {
+            // System.out.println("\n>> I am at: " + loc.r + ", " + loc.c + " doing " + code[loc.r][loc.c]);
+            switch(code[loc.r][loc.c]) {
                 case 'A':
                     accumulator.push(getBoolean(layer));
                     break;
@@ -322,42 +327,84 @@ public class TimelineInterpreter {
                     break;
                 case '@':
                     layer = (layer + 1) % resetLayer;
+                    drops.poll();
+                    drops.add(new HashMap<Point,String>());
                     break;
-                case '#': 
+                case '#':
                     switch(direction) {
                         case UP:
-                            row = mod(row - 1, code.length);
+                            loc.r = mod(loc.r - 1, code.length);
                             break;
                         case LEFT:
-                            col = mod(col - 1, code[0].length);
+                            loc.c = mod(loc.c - 1, code[0].length);
                             break;
                         case DOWN:
-                            row = mod(row + 1, code.length);
+                            loc.r = mod(loc.r + 1, code.length);
                             break;
                         case RIGHT:
-                            col = mod(col + 1, code[0].length);
+                            loc.c = mod(loc.c + 1, code[0].length);
                             break;
                     }
                     break;
-                case '0': // TODO
+                case '0':
+                    if (drops.get(0).containsKey(loc) && accumulator.left.isEmpty())
+                        accumulator.left = drops.get(0).remove(loc);
+                    else if (!drops.get(0).containsKey(loc) && !accumulator.left.isEmpty())
+                        drops.get(0).put(loc, accumulator.left);
                     break;
-                case '1': // TODO
+                case '1':
+                    if (drops.get(1).containsKey(loc) && accumulator.left.isEmpty())
+                        accumulator.left = drops.get(1).remove(loc);
+                    else if (!drops.get(1).containsKey(loc) && !accumulator.left.isEmpty())
+                        drops.get(1).put(loc, accumulator.left);
                     break;
-                case '2': // TODO
+                case '2':
+                    if (drops.get(2).containsKey(loc) && accumulator.left.isEmpty())
+                        accumulator.left = drops.get(2).remove(loc);
+                    else if (!drops.get(2).containsKey(loc) && !accumulator.left.isEmpty())
+                        drops.get(2).put(loc, accumulator.left);
                     break;
-                case '3': // TODO
+                case '3':
+                    if (drops.get(3).containsKey(loc) && accumulator.left.isEmpty())
+                        accumulator.left = drops.get(3).remove(loc);
+                    else if (!drops.get(3).containsKey(loc) && !accumulator.left.isEmpty())
+                        drops.get(3).put(loc, accumulator.left);
                     break;
-                case '4': // TODO
+                case '4':
+                    if (drops.get(4).containsKey(loc) && accumulator.left.isEmpty())
+                        accumulator.left = drops.get(4).remove(loc);
+                    else if (!drops.get(4).containsKey(loc) && !accumulator.left.isEmpty())
+                        drops.get(4).put(loc, accumulator.left);
                     break;
-                case '5': // TODO
+                case '5':
+                    if (drops.get(5).containsKey(loc) && accumulator.left.isEmpty())
+                        accumulator.left = drops.get(5).remove(loc);
+                    else if (!drops.get(5).containsKey(loc) && !accumulator.left.isEmpty())
+                        drops.get(5).put(loc, accumulator.left);
                     break;
-                case '6': // TODO
+                case '6':
+                    if (drops.get(6).containsKey(loc) && accumulator.left.isEmpty())
+                        accumulator.left = drops.get(6).remove(loc);
+                    else if (!drops.get(6).containsKey(loc) && !accumulator.left.isEmpty())
+                        drops.get(6).put(loc, accumulator.left);
                     break;
-                case '7': // TODO
+                case '7':
+                    if (drops.get(7).containsKey(loc) && accumulator.left.isEmpty())
+                        accumulator.left = drops.get(7).remove(loc);
+                    else if (!drops.get(7).containsKey(loc) && !accumulator.left.isEmpty())
+                        drops.get(7).put(loc, accumulator.left);
                     break;
-                case '8': // TODO
+                case '8':
+                    if (drops.get(8).containsKey(loc) && accumulator.left.isEmpty())
+                        accumulator.left = drops.get(8).remove(loc);
+                    else if (!drops.get(8).containsKey(loc) && !accumulator.left.isEmpty())
+                        drops.get(8).put(loc, accumulator.left);
                     break;
-                case '9': // TODO
+                case '9':
+                    if (drops.get(9).containsKey(loc) && accumulator.left.isEmpty())
+                        accumulator.left = drops.get(9).remove(loc);
+                    else if (!drops.get(9).containsKey(loc) && !accumulator.left.isEmpty())
+                        drops.get(9).put(loc, accumulator.left);
                     break;
                 case '?':
                     accumulator.clear();
@@ -381,22 +428,22 @@ public class TimelineInterpreter {
             switch(direction) {
                 case UP:
                     //System.out.println("Going UP");
-                    row = mod(row - 1, code.length);
+                    loc.r = mod(loc.r - 1, code.length);
                     break;
                 case LEFT:
                     //System.out.println("Going LEFT");
-                    col = mod(col - 1, code[0].length);
+                    loc.c = mod(loc.c - 1, code[0].length);
                     break;
                 case DOWN:
                     //System.out.println("Going DOWN");
-                    row = mod(row + 1, code.length);
+                    loc.r = mod(loc.r + 1, code.length);
                     break;
                 case RIGHT:
                     //System.out.println("Going RIGHT");
-                    col = mod(col + 1, code[0].length);
+                    loc.c = mod(loc.c + 1, code[0].length);
                     break;
             }
-            // System.out.println("\n"+ row + " " + col +  " Row Length:" + code.length);
+            // System.out.println("\n"+ loc.x + " " + loc.y +  " Row Length:" + code.length);
         }
     }
     public static void main(String[] args) {
