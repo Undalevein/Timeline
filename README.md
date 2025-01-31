@@ -1,6 +1,6 @@
 # Timeline by Undalevein
 
-Timeline is a completely esoteric 3D/2D and evil programming language. It involves really dastardly difficult way of thinking how to code, within the context of using layers and an unreliable way of navigating through just to print out something.
+Timeline is a completely esoteric 3D/2D and evil programming language. It involves really dastardly difficult way of thinking how to code on a 3D space using layers and an unreliable way of navigating through just to perform any computation.
 
 In Timeline, you control a data pointer that points to a section in your code. There, you pick up items from infinity cells in which the accumulator that automatically stores and evaluates data and operators inside it. To get access to different values or operaetors, you must travel downwards and only downwards to get what you want. And make sure that you are not feeding the accumulator junk!
 
