@@ -52,7 +52,7 @@ The programming language may seem like it's a 2D programming language, but topol
 
 When a program runs, the data pointer will begin at layer 0.
 
-The data pointer can go down the next layer by 1 when it is at the `@` character. This, in effect, will change what the Infinity Cells offer by 1. While this can allow you to get more values and operators, you can never go up, only down! And sure, because each Infinity Cell is looping you can reset all operators that is not including the STDIN infinity cell; all you need to do is to go down to layer 43680... oh... oh no...
+The data pointer can go down the next layer by 1 when it is at the `@` character. This, in effect, will change what the Infinity Cells offer by 1. While this can allow you to get more values and operators, you can never go up, only down! And sure, because each Infinity Cell is looping you can reset all infinity cells not including the STDIN infinity cell; all you need to do is to go down to layer 43680... oh... oh no...
 
 Infinity Cells are characters where if the data pointer initiates it, it will receive a value or operator depending on what layer number the data pointer is in. Take the character `D` as an example where it holds digit characters 0 to 9 then repeats. If the data pointer is at layer 0, then it will get `0` into the accumulator and if the data pointer is at layer 1, then it will get `1` and so on and so forth. Until the data pointer is at layer 10 is where the digits the accumulator can get wraps around, where the data pointer will receive `0` again if pointed. Keep this in mind when you have multiple different Infinity Cells in your code!
 
