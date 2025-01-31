@@ -1,3 +1,4 @@
+package src;
 import java.util.regex.Pattern;
 
 public class Accumulator {
@@ -139,7 +140,7 @@ public class Accumulator {
         switch (operator) {
             case ADD:
                 if (canParseInt(left) && canParseInt(right))
-                    left = Integer.toString(Integer.parseInt(left) + Integer.parseInt(left));
+                    left = Integer.toString(Integer.parseInt(left) + Integer.parseInt(right));
                 else if (canParseFloat(left) && canParseFloat(right))
                     left = Double.toString(Double.parseDouble(left) + Double.parseDouble(right));
                 else
@@ -147,7 +148,7 @@ public class Accumulator {
                 break;
             case SUB:
                 if (canParseInt(left) && canParseInt(right))
-                    left = Integer.toString(Integer.parseInt(left) - Integer.parseInt(left));
+                    left = Integer.toString(Integer.parseInt(left) - Integer.parseInt(right));
                 else if (canParseFloat(left) && canParseFloat(right))
                     left = Double.toString(Double.parseDouble(left) - Double.parseDouble(right));
                 else
@@ -155,7 +156,7 @@ public class Accumulator {
                 break;
             case MULT:
                 if (canParseInt(left) && canParseInt(right))
-                    left = Integer.toString(Integer.parseInt(left) * Integer.parseInt(left));
+                    left = Integer.toString(Integer.parseInt(left) * Integer.parseInt(right));
                 else if (canParseFloat(left) && canParseFloat(right))
                     left = Double.toString(Double.parseDouble(left) * Double.parseDouble(right));
                 else
@@ -171,7 +172,7 @@ public class Accumulator {
                 break;
             case POW:
                 if (canParseInt(left) && canParseInt(right))
-                    left = Integer.toString(pow(Integer.parseInt(left), Integer.parseInt(left)));
+                    left = Integer.toString(pow(Integer.parseInt(left), Integer.parseInt(right)));
                 else if (canParseFloat(left) && canParseFloat(right))
                     left = Double.toString(Math.pow(Double.parseDouble(left), Double.parseDouble(right)));
                 else

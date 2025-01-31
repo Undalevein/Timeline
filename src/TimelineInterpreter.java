@@ -1,3 +1,4 @@
+package src;
 import java.util.Arrays;
 import java.util.List;
 import java.io.BufferedReader;
@@ -349,60 +350,80 @@ public class TimelineInterpreter {
                 case '0':
                     if (drops.get(0).containsKey(loc) && accumulator.left.isEmpty())
                         accumulator.left = drops.get(0).remove(loc);
+                    else if (drops.get(0).containsKey(loc) && accumulator.right.isEmpty())
+                        accumulator.right = drops.get(0).remove(loc);
                     else if (!drops.get(0).containsKey(loc) && !accumulator.left.isEmpty())
                         drops.get(0).put(loc, accumulator.left);
                     break;
                 case '1':
                     if (drops.get(0).containsKey(loc) && accumulator.left.isEmpty())
                         accumulator.left = drops.get(0).remove(loc);
+                    else if (drops.get(0).containsKey(loc) && accumulator.right.isEmpty())
+                        accumulator.right = drops.get(0).remove(loc);
                     else if (!drops.get(1).containsKey(loc) && !accumulator.left.isEmpty())
                         drops.get(1).put(loc, accumulator.left);
                     break;
-                case '2':                    
+                case '2':
                     if (drops.get(0).containsKey(loc) && accumulator.left.isEmpty())
                         accumulator.left = drops.get(0).remove(loc);
+                    else if (drops.get(0).containsKey(loc) && accumulator.right.isEmpty())
+                        accumulator.right = drops.get(0).remove(loc);
                     else if (!drops.get(2).containsKey(loc) && !accumulator.left.isEmpty())
                         drops.get(2).put(loc, accumulator.left);
                     break;
                 case '3':
                     if (drops.get(0).containsKey(loc) && accumulator.left.isEmpty())
                         accumulator.left = drops.get(0).remove(loc);
+                    else if (drops.get(0).containsKey(loc) && accumulator.right.isEmpty())
+                        accumulator.right = drops.get(0).remove(loc);
                     else if (!drops.get(3).containsKey(loc) && !accumulator.left.isEmpty())
                         drops.get(3).put(loc, accumulator.left);
                     break;
                 case '4':
                     if (drops.get(0).containsKey(loc) && accumulator.left.isEmpty())
                         accumulator.left = drops.get(0).remove(loc);
+                    else if (drops.get(0).containsKey(loc) && accumulator.right.isEmpty())
+                        accumulator.right = drops.get(0).remove(loc);
                     else if (!drops.get(4).containsKey(loc) && !accumulator.left.isEmpty())
                         drops.get(4).put(loc, accumulator.left);
                     break;
                 case '5':
                     if (drops.get(0).containsKey(loc) && accumulator.left.isEmpty())
                         accumulator.left = drops.get(0).remove(loc);
+                    else if (drops.get(0).containsKey(loc) && accumulator.right.isEmpty())
+                        accumulator.right = drops.get(0).remove(loc);
                     else if (!drops.get(5).containsKey(loc) && !accumulator.left.isEmpty())
                         drops.get(5).put(loc, accumulator.left);
                     break;
                 case '6':
                     if (drops.get(0).containsKey(loc) && accumulator.left.isEmpty())
                         accumulator.left = drops.get(0).remove(loc);
+                    else if (drops.get(0).containsKey(loc) && accumulator.right.isEmpty())
+                        accumulator.right = drops.get(0).remove(loc);
                     else if (!drops.get(6).containsKey(loc) && !accumulator.left.isEmpty())
                         drops.get(6).put(loc, accumulator.left);
                     break;
                 case '7':
                     if (drops.get(0).containsKey(loc) && accumulator.left.isEmpty())
                         accumulator.left = drops.get(0).remove(loc);
+                    else if (drops.get(0).containsKey(loc) && accumulator.right.isEmpty())
+                        accumulator.right = drops.get(0).remove(loc);
                     else if (!drops.get(7).containsKey(loc) && !accumulator.left.isEmpty())
                         drops.get(7).put(loc, accumulator.left);
                     break;
                 case '8':
                     if (drops.get(0).containsKey(loc) && accumulator.left.isEmpty())
                         accumulator.left = drops.get(0).remove(loc);
+                    else if (drops.get(0).containsKey(loc) && accumulator.right.isEmpty())
+                        accumulator.right = drops.get(0).remove(loc);
                     else if (!drops.get(8).containsKey(loc) && !accumulator.left.isEmpty())
                         drops.get(8).put(loc, accumulator.left);
                     break;
                 case '9':
                     if (drops.get(0).containsKey(loc) && accumulator.left.isEmpty())
                         accumulator.left = drops.get(0).remove(loc);
+                    else if (drops.get(0).containsKey(loc) && accumulator.right.isEmpty())
+                        accumulator.right = drops.get(0).remove(loc);
                     else if (!drops.get(9).containsKey(loc) && !accumulator.left.isEmpty())
                         drops.get(9).put(loc, accumulator.left);
                     break;
@@ -419,7 +440,6 @@ public class TimelineInterpreter {
                 case 'X':
                     break program;
             }
-            
             if (accumulator.isAmorphous || !accumulator.evaluate()) {
                 // System.out.println("ACCUMULATOR IS AMORPHOUS");
                 accumulator.amorphousClear();
