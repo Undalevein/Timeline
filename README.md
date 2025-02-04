@@ -70,11 +70,11 @@ After evaluating the cell the pointer is on, the accumulator automatically evalu
 
 - If there's only the left-value (left-value is not empty), then no evaluation will be made.
 - If there's a left-value and an unary operator, then an evaluation will be made.
-  - If the left-value is incompatible with the operator (i.e. negating "HELLO!"), then the accumulator becomes AMORPHOUS.
+  - If the left-value is incompatible with the operator (i.e. negating `"HELLO!"`), then the accumulator becomes AMORPHOUS.
   - If the left-value is compatible with the operator, it will perform the evaluation and save the result to the left-value and then removes the operator from the accumulator.
 - If there's a left-value and a binary operator but the right-value is empty, then no evaluation will be made.
 - If there's a left-value, a binary operator, and a right-value, then an evaluation will be made.
-  - If either values are incompatible with the operator (i.e. adding "M" to "9"), then the accumulator becomes AMORPHOUS.
+  - If either values are incompatible with the operator (i.e. adding `"M"` to `"9"`), then the accumulator becomes AMORPHOUS.
   - If both values are compatible with the operator, it will perform the evaluation and save the result to the left-value and then removes the operator and the right-value from the accumulator.
 
 #### Numbers
@@ -97,10 +97,16 @@ Technically, you can make the word `"FALSE"` and it will be considered as false 
 
 In some scenarios when a boolean is required, the interpreter will evaluate things as truthy or falsy. Everything is considered truthy except for the following:
 
-- The left-value is `"FALSE"`
+- The left-value is `"FALSE"` (all capitalized).
 - The left-value is empty.
-- The accumulator is AMORPHOUS
+- The accumulator is AMORPHOUS.
 - The accumulator contains a binary operator that it can't evaluate yet.
+
+However, these below are not considered falsy.
+
+- Left-value is `"AMORPHOUS"`, including its lowercase variations, but the accumulator is not AMORPHOUS.
+- Left-value is `"0"`.
+- Left-value is any of the lowercase variations of of `"FALSE"`.
 
 ### Coding Specifications
 
@@ -157,3 +163,7 @@ Static Cells do not change when going down layers.
 |      `.`      |    Prints the left-value from the accumulator only if the value in the accumulator is not AMORPHOUS or unevaluated. If it is AMORPHOUS, it will print AMORPHOUS. If it has not been evaluated, it will print UNEVALUATED. Clears afterwards.     |
 |      `,`      |              Prints the left-value from the accumulator only if the value in the accumulator is not AMORPHOUS or unevaluated. If it is AMORPHOUS, it will print AMORPHOUS. If it has not been evaluated, it will print UNEVALUATED.              |
 |      `X`      |                                                                                                             Terminates the program.                                                                                                              |
+
+### Turing Completeness
+
+Due to how complex it is to code in Timeline, it is unclear whether or not the program is Turing Complete. As such, I am open to feedback and willing to update the language if it is not Turing complete!
