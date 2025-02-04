@@ -106,7 +106,7 @@ However, these below are not considered falsy.
 
 - Left-value is `"AMORPHOUS"`, including its lowercase variations, but the accumulator itself is not AMORPHOUS.
 - Left-value is `"NULL"` or `"EMPTY"`, including their lowercase variations, but the accumulator is not actually empty.
-- Left-value is `"0"`.
+- Left-value is `"0"` (or only zero characters).
 - Left-value is any of the lowercase variations of of `"FALSE"`.
 
 ### Coding Specifications
