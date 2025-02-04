@@ -104,7 +104,8 @@ In some scenarios when a boolean is required, the interpreter will evaluate thin
 
 However, these below are not considered falsy.
 
-- Left-value is `"AMORPHOUS"`, including its lowercase variations, but the accumulator is not AMORPHOUS.
+- Left-value is `"AMORPHOUS"`, including its lowercase variations, but the accumulator itself is not AMORPHOUS.
+- Left-value is `"NULL"` or `"EMPTY"`, including their lowercase variations, but the accumulator is not actually empty.
 - Left-value is `"0"`.
 - Left-value is any of the lowercase variations of of `"FALSE"`.
 
