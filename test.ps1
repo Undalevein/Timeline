@@ -22,26 +22,30 @@ function Assert-Equals {
 # Timeline Interpreter Location
 $interp = "$PSScriptRoot\src\TimelineInterpreter.java"
 
+# Example Folder
+$examples = "$PSScriptRoot\examples"
+
 $Error.clear()
-Get-Content "$PSScriptRoot\examples\bad_printing.timeline" | java -ea "$interp" |
+Get-Content "$examples\bad_printing.timeline" | java -ea "$interp" |
     Assert-Equals ("AMORPHOUSAMORPHOUSAMORPHOUSUNEVALUATEDAAAA") &&
-Get-Content "$PSScriptRoot\examples\circle_effect.timeline" | java -ea "$interp" |
+Get-Content "$examples\circle_effect.timeline" | java -ea "$interp" |
     Assert-Equals ("0123") &&
-Get-Content "$PSScriptRoot\examples\dropoff_rigorous.timeline" | java -ea "$interp" |
+Get-Content "$examples\dropoff_rigorous.timeline" | java -ea "$interp" |
     Assert-Equals ("AABACADAEAFAGAHAIAJA") &&
-Get-Content "$PSScriptRoot\examples\dropoff.timeline" | java -ea "$interp" |
+Get-Content "$examples\dropoff.timeline" | java -ea "$interp" |
     Assert-Equals ("10") &&
-# Get-Content "$PSScriptRoot\examples\hello_world.timeline" | java -ea "$interp" |
-#     Assert-Equals "Hello, World!" &&
-Get-Content "$PSScriptRoot\examples\hi.timeline" | java -ea "$interp" |
+# Get-Content "$examples\fibonacci_copy.timeline" | java -ea "$interp" &&
+Get-Content "$examples\hello.timeline" | java -ea "$interp" |
+    Assert-Equals ("Hello, World!") &&
+Get-Content "$examples\hi.timeline" | java -ea "$interp" |
     Assert-Equals ("Hi") &&
-Get-Content "$PSScriptRoot\examples\horizontal_looping.timeline" | java -ea "$interp" |
+Get-Content "$examples\horizontal_looping.timeline" | java -ea "$interp" |
     Assert-Equals ("00") &&
-Get-Content "$PSScriptRoot\examples\infinity_cell_loop.timeline" | java -ea "$interp" |
+Get-Content "$examples\infinity_cell_loop.timeline" | java -ea "$interp" |
     Assert-Equals ("012345678901234567890123456789") &&
-Get-Content "$PSScriptRoot\examples\math_operators.timeline" | java -ea "$interp" |
+Get-Content "$examples\math_operators.timeline" | java -ea "$interp" |
     Assert-Equals ("4") &&
-Get-Content "$PSScriptRoot\examples\vertical_looping.timeline" | java -ea "$interp" |
+Get-Content "$examples\vertical_looping.timeline" | java -ea "$interp" |
     Assert-Equals ("a") &&
 ForEach-Object 'foo';
 
