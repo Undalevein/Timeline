@@ -467,8 +467,7 @@ public class TimelineInterpreter {
         }
     }
     public static void main(String[] args) {
-        stdinInput = String.join(" ", args).split("");
-        // System.out.println(stdinInput.length);
+        stdinInput = String.join(" ", args).concat("\0").split("");
         interpretCode();
     }
 }

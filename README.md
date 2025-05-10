@@ -98,6 +98,7 @@ Technically, you can make the word `"FALSE"` and it will be considered as false 
 In some scenarios when a boolean is required, the interpreter will evaluate things as truthy or falsy. Everything is considered truthy except for the following:
 
 - The left-value is `"FALSE"` (all capitalized).
+- The left-value is a null character `\0` (only obtained through stdin input).`````````````````
 - The left-value is empty.
 - The accumulator is AMORPHOUS.
 - The accumulator contains a binary operator that it can't evaluate yet.
@@ -124,7 +125,7 @@ Infinity cells are cells that contain all of the necessary values and operators 
 |      `C`      |          Concatenation Operators           |                                                                                                   `concat` -> `repeat` -> ...                                                                                                    |
 |      `D`      |                   Digits                   |                                                                                          `0` -> `1` -> `2` -> ... -> `8` -> `9` -> ...                                                                                           |
 |      `E`      |            Relational Operators            |                                                                                        `==` -> `!=` -> `<` -> `<=` -> `>` -> `=>` -> ...                                                                                         |
-|      `I`      |                Stdin Input                 |                                                                                        `Stdin[0]` -> `Stdin[1]` -> ... `Stdin[n]` -> ...                                                                                         |
+|      `I`      |                Stdin Input                 |                                                                                        `Stdin[0]` -> `Stdin[1]` -> ... `Stdin[n]` -> `\0`-> ...                                                                                         |
 |      `L`      |             Lowercase Letters              |                                                                                          `a` -> `b` -> `c` -> ... -> `y` -> `z` -> ...                                                                                           |
 |      `M`      |            Arithmetic Operators            |                                                                                   `+` -> `-` -> `*` -> `/` -> `**` -> `%` -> `negation` -> ...                                                                                   |
 |      `N`      |             Bitwise Operators              |                                                                                        `~` -> `&` -> `\|` -> `<<` -> `>>` -> `>>>` -> ...                                                                                        |

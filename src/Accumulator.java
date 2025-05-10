@@ -399,10 +399,16 @@ public class Accumulator {
          *      - Accumulator has not been evaluated
          *      - Accumulator is empty
          *      - Accumulator has "False" in the left of it
+         *      - Accumulator has the null character "\0" in the left of it 
          * 
          * @return          The accumulator's truthiness
          */
-        return !isAmorphous && operator != Operator.NULL && !left.isEmpty() && !left.equals("FALSE");
+        // System.out.println("is not amoprhous: " + !isAmorphous);
+        // System.out.println("no operator in accumulator: " + (operator != Operator.NULL));
+        // System.out.println("is not empty: " + !left.isEmpty());
+        // System.out.println("left is not \"FALSE\": " + !left.equals("FALSE"));
+        // System.out.println("left is not '\\0': " + !left.equals("FALSE"));
+        return !isAmorphous && operator == Operator.NULL && !left.isEmpty() && !left.equals("FALSE") && !left.equals("\0");
     }
 
     public void print() {

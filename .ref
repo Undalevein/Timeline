@@ -17,7 +17,7 @@ E - Equality/Inequality Operators
 (== -> != -> < -> <= -> > -> => -> ...)
 
 I - Stdin Input
-Characters go from Index 0 to Index (length of Stdin), then loops.
+Characters go from Index 0 to Index (length of Stdin), then null character \0, then loops.
 
 L - Lowercase Letters
 Goes from a to z, then loops.
