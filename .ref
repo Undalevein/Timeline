@@ -23,7 +23,7 @@ L - Lowercase Letters
 Goes from a to z, then loops.
 
 M - Math Operators 
-(+ -> - -> * -> / -> ** -> % -> ...)
+(+ -> - -> * -> / -> ** -> % -> - -> ...)
 
 N - Bitwise Operators
 (~ -> & -> | -> << -> >> -> >>> -> ...)
@@ -32,7 +32,7 @@ R - Rounding/Estimation Operators
 (round -> ceil -> floor -> trunc -> ...)
 
 S - Symbols
-`~!@#$%^&*()-_=+[{]}\|;:'",<.>/?
+!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
 
 T - Trig Operators
 (sin -> cos -> tan -> csc -> sec -> cot -> asin -> acos -> atan -> acsc -> asec -> acot -> sinh -> cosh -> tanh -> csch -> sech -> coth -> ...)
