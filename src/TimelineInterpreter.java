@@ -68,7 +68,7 @@ public class TimelineInterpreter {
     private static final String[] lowercaseLetters = "abcdefghijklmnopqrstuvwxyz".split("");
     private static final String[] uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
     private static final String[] digits = "0123456789".split("");
-    private static final String[] symbols = "`~!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?".split("");
+    private static final String[] symbols = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~".split("");
     private static final String[] booleans = {"TRUE", "FALSE"};
     private static final String[] whitespace = {" ", "\n", "\t"};
 
