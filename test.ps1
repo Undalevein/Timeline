@@ -28,6 +28,8 @@ $examples = "$PSScriptRoot\examples"
 $Error.clear()
 Get-Content "$examples\bad_printing.timeline" | java -ea "$interp" |
     Assert-Equals ("AMORPHOUSAMORPHOUSAMORPHOUSUNEVALUATEDAAAA") &&
+Get-Content "$examples\cat.timeline" | java -ea "$interp" "This is a wonderful cat program!" |
+    Assert-Equals ("This is a wonderful cat program!") &&
 Get-Content "$examples\circle_effect.timeline" | java -ea "$interp" |
     Assert-Equals ("0123") &&
 Get-Content "$examples\dropoff_rigorous.timeline" | java -ea "$interp" |
